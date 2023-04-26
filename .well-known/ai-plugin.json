@@ -2,8 +2,8 @@
     "schema_version": "v1",
     "name_for_human": "Genius",
     "name_for_model": "genius",
-    "description_for_human": "Plugin for Genius that allows you to search for song lyrics, ask song meanings, and write song parodies.",
-    "description_for_model": "Plugin for Genius that allows you to search for song lyrics, ask song meanings, and write song parodies.",
+    "description_for_human": "Search for song lyrics, discover song meanings and trivia, get artist and album data, and write song parodies.",
+    "description_for_model": "Use the Genius API to search for song lyrics, discover song meanings and trivia using annotations, get artist and album data, and write song parodies",
     "auth": {
       "type": "none"
     },
@@ -12,8 +12,8 @@
       "url": "http://localhost:8000/openapi.yaml",
       "is_user_authenticated": false
     },
-    "logo_url": "http://localhost:8000/assets/logo.png",
+    "logo_url": "http://localhost:8000/assets/genius-logo.png",
     "contact_email": "nick@clyde.tech",
-    "legal_info_url": "http://example.com/legal"
+    "legal_info_url": "https://creativecommons.org/publicdomain/zero/1.0"
   }
   
