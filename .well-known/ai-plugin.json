@@ -1,19 +1,19 @@
 {
     "schema_version": "v1",
-    "name_for_human": "TODO Plugin (no auth)",
-    "name_for_model": "todo",
-    "description_for_human": "Plugin for managing a TODO list, you can add, remove and view your TODOs.",
-    "description_for_model": "Plugin for managing a TODO list, you can add, remove and view your TODOs.",
+    "name_for_human": "Genius",
+    "name_for_model": "genius",
+    "description_for_human": "Plugin for Genius that allows you to search for song lyrics, ask song meanings, and write song parodies.",
+    "description_for_model": "Plugin for Genius that allows you to search for song lyrics, ask song meanings, and write song parodies.",
     "auth": {
       "type": "none"
     },
     "api": {
       "type": "openapi",
-      "url": "http://localhost:5003/openapi.yaml",
+      "url": "http://localhost:8000/openapi.yaml",
       "is_user_authenticated": false
     },
-    "logo_url": "http://localhost:5003/logo.png",
-    "contact_email": "legal@example.com",
+    "logo_url": "http://localhost:8000/assets/logo.png",
+    "contact_email": "nick@clyde.tech",
     "legal_info_url": "http://example.com/legal"
   }
   

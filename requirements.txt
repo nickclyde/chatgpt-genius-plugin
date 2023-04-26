@@ -1,2 +1,5 @@
-quart
-quart-cors
+fastapi
+lyricsgenius
+pydantic
+pyyaml
+uvicorn
