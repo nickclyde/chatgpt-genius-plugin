@@ -12,15 +12,6 @@ from lyricsgenius import Genius
 app = FastAPI(
     title="ChatGPT Genius Plugin",
     version="0.0.1",
-    contact={
-        "name": "Nick Clyde",
-        "url": "https://github.com/nickclyde/chatgpt-genius-plugin",
-        "email": "nick@clyde.tech",
-    },
-    license_info={
-        "name": "Creative Commons Zero v1.0 Universal",
-        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
-    },
     description="Use the Genius API to search for song lyrics, discover song meanings and trivia using annotations, get artist and album data, and write song parodies",
 )
 
@@ -110,29 +101,105 @@ async def find_by_lyrics(lyrics: str):
 
 
 ##### ARTISTS #####
+# Get artist id
+@app.get(
+    "/artist-id",
+    summary="Get artist id",
+    description="Get artist id for a given artist name.",
+)
+async def get_artist_id(artist_name: str):
+    artist = genius.search_artist(artist_name, max_songs=1, get_full_info=False)
+    return {"artist_id": artist.id}
+
+
 # Get artist metadata
 @app.get(
-    "/artist",
+    "/artist-metadata",
     summary="Get artist metadata",
     description="Get artist metadata for a given artist name.",
 )
-async def get_artist(artist_name: str):
-    artist = genius.search_artist(artist_name)
-    return {"artist": artist.to_dict()}
+async def get_artist_metadata(artist_name: str):
+    artist = genius.search_artist(artist_name, max_songs=1, get_full_info=False)
+    artist_metadata = artist.to_dict()
+    artist_metadata.pop("songs", None)
+    artist_metadata.pop("description_annotation", None)
+    return {"artist": artist_metadata}
+
+
+# Get artist's top songs
+@app.get(
+    "/artist-top-songs",
+    summary="Get artist's top songs",
+    description="Get artist's top songs for a given artist name.",
+)
+async def get_artist_top_songs(artist_name: str):
+    artist = genius.search_artist(artist_name, max_songs=5, get_full_info=False)
+    top_songs = artist.to_dict()["songs"]
+    return {"top_songs": top_songs}
 
 
 ##### ALBUMS #####
-# Get album metadata
+# Get album id
 @app.get(
-    "/album",
-    summary="Get album metadata",
-    description="Get album metadata for a given album name. May optionally specify artist name.",
+    "/album-id",
+    summary="Get album id",
+    description="Get album id for a given album name. May optionally specify artist name.",
 )
-async def get_album(album_name: str, artist_name: str):
+async def get_album_id(album_name: str, artist_name: str):
     search_term = f"{album_name} {artist_name}"
     search_results = genius.search_albums(search_term=search_term)
-    album = search_results[0]
+    album_id = search_results["sections"][0]["hits"][0]["result"]["id"]
+    return {"album_id": album_id}
+
+
+# Get album metadata
+@app.get(
+    "/album-metadata",
+    summary="Get album metadata",
+    description="Get album metadata for a given id.",
+)
+async def get_album_metadata(album_id: str):
+    album = genius.album(album_id)["album"]
+    album.pop("description_annotation", None)
+    album.pop("song_performances", None)
+    album.pop("cover_arts", None)
     return {"album": album}
+
+
+# Get album tracks
+@app.get(
+    "/album-tracks",
+    summary="Get album tracks",
+    description="Get album tracks for a given album id.",
+)
+async def get_album_tracks(album_id: str):
+    tracks = genius.album_tracks(album_id)
+    return {"tracks": tracks}
+
+
+# Get album art
+@app.get(
+    "/album-art",
+    summary="Get album art image url",
+    description="Get album art image url for a given album id.",
+)
+async def get_album_art(album_id: str):
+    arts = genius.album_cover_arts(album_id)
+    album_art = arts["cover_arts"][0]["image_url"]
+    return {"album_art": album_art}
+
+
+# Get album by song
+@app.get(
+    "/album-id-by-song",
+    summary="Get album id by song",
+    description="Get album id for a given song name. May optionally specify artist name.",
+)
+async def get_album_by_song(song_name: str, artist_name: str):
+    search_term = f"{song_name} {artist_name}"
+    search_results = genius.search_albums(search_term=search_term)
+    album_id = search_results["sections"][0]["hits"][0]["result"]["id"]
+    return {"album_id": album_id}
 
 
 ##### MISC #####
