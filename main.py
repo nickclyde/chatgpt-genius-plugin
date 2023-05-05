@@ -35,8 +35,12 @@ app.add_middleware(
 # Auth middleware
 @app.middleware("http")
 async def auth(request: Request, call_next):
-    # Skip auth for health check
-    if request.url.path == "/":
+    # Skip auth for health check and static files
+    if (
+        request.url.path == "/"
+        or request.url.path.startswith("/.well-known")
+        or request.url.path.startswith("/assets")
+    ):
         response = await call_next(request)
         return response
     # Check for auth header
