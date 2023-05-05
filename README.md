@@ -49,6 +49,8 @@ Once the local server is running:
 5. Enter in `https://chatgpt-genius-plugin.youruser.repl.co` or whatever your replit/ngrok/domain is, then select "Find manifest file".
 6. It will ask for your Client ID and Client Secret. Enter the values from you Genius API Client.
 7. OpenAI will give you a verification token. Enter this in `.well-known/ai-plugin.json` in the `verification_tokens` object. Restart your server and then continue in ChatGPT.
+8. After installing the plugin, it will ask you to login with Genius. Click the button, and you'll see "Invalid authorization". Look in the URL to get your redirect URI (it should be in the oauth request). Go back to your Genius API Client and edit. Update the redirect URI to `https://chat.openai.com/aip/plugin-your_plugin_id/oauth/callback`, where `your_plugin_id` should be some unique UUID. Now save your Genius API client with the corrected Redirect URI.
+9. Refresh the tab with "Invalid authorization" - it should go through now!
 
 The plugin should now be installed and enabled! You can try out a number of different questions:
 
