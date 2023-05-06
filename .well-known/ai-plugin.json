@@ -16,10 +16,10 @@
     },
     "api": {
       "type": "openapi",
-      "url": "https://chatgpt-genius-plugin.nickclyde.repl.co/openapi.yaml",
+      "url": "https:///chatgpt-genius-plugin.mydomain.com/openapi.yaml",
       "is_user_authenticated": false
     },
-    "logo_url": "https://chatgpt-genius-plugin.nickclyde.repl.co/assets/genius-logo.png",
+    "logo_url": "https:///chatgpt-genius-plugin.mydomain.com/assets/genius-logo.png",
     "contact_email": "nick@clyde.tech",
     "legal_info_url": "https://creativecommons.org/publicdomain/zero/1.0"
   }
